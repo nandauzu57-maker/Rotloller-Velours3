@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roroller Velrous</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #EDE8E0;
+    --cream-dark: #E0D9CE;
+    --cream-light: #F5F2ED;
+    --obsidian: #1A1714;
+    --warm-black: #221F1B;
+    --gold: #B8965A;
+    --gold-light: #D4AE72;
+    --stone: #8C8070;
+    --mist: #C8BFB2;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--obsidian);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 4rem;
+    background: rgba(237,232,224,0.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(184,150,90,0.18);
+    transition: background 0.4s;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.85rem;
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    color: var(--obsidian);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.6rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-black);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  .cart-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-black);
+  }
+  .cart-count {
+    background: var(--gold);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 500;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 6rem;
+  }
+  .hero-eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 6vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--obsidian);
+    margin-bottom: 1.4rem;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 0.82rem;
+    line-height: 1.85;
+    color: var(--stone);
+    max-width: 38ch;
+    margin-bottom: 3.5rem;
+    letter-spacing: 0.04em;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 1.1rem 3rem;
+    background: var(--obsidian);
+    color: var(--cream-light);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.35s, color 0.35s;
+    align-self: flex-start;
+  }
+  .btn-primary:hover { background: var(--gold); color: white; }
+  .btn-outline {
+    display: inline-block;
+    padding: 1.05rem 2.8rem;
+    border: 1px solid var(--obsidian);
+    color: var(--obsidian);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    transition: background 0.3s, color 0.3s;
+  }
+  .btn-outline:hover { background: var(--obsidian); color: var(--cream); }
+
+  .hero-right {
+    position: relative;
+    background: var(--cream-dark);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-visual {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .hero-garment {
+    width: 320px;
+    height: 480px;
+    position: relative;
+    animation: floatGarment 6s ease-in-out infinite;
+    box-shadow: 40px 60px 120px rgba(26,23,20,0.3);
+    overflow: hidden;
+    background: #1A1714;
+  }
+  .hero-garment img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .hero-accent-line {
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+  .hero-tag {
+    position: absolute;
+    bottom: 3rem;
+    left: 3rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    color: var(--stone);
+    text-transform: uppercase;
+  }
+  @keyframes floatGarment {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-16px); }
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--obsidian);
+    padding: 1.1rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex;
+    gap: 4rem;
+    animation: marquee 22s linear infinite;
+  }
+  .marquee-item {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+  .marquee-dot {
+    color: var(--gold);
+    margin-left: 4rem;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── COLLECTION ── */
+  .section { padding: 7rem 5rem; }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+  }
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.2rem;
+  }
+
+  .product-card {
+    cursor: pointer;
+    group: true;
+  }
+  .product-img {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.4rem;
+    background: var(--cream-dark);
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-img:hover .product-overlay { opacity: 1; }
+  .product-visual {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .prod-shape {
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .product-img:hover .prod-shape { transform: scale(1.04); }
+
+  .product-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26,23,20,0.65);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0;
+    transition: opacity 0.35s;
+  }
+  .overlay-btn {
+    padding: 0.85rem 2.2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s;
+  }
+  .overlay-btn.add { background: var(--gold); color: white; }
+  .overlay-btn.add:hover { background: var(--gold-light); }
+  .overlay-btn.quick { background: transparent; border: 1px solid rgba(255,255,255,0.5); color: white; }
+  .overlay-btn.quick:hover { background: rgba(255,255,255,0.1); }
+
+  .product-badge {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    background: var(--gold);
+    color: white;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.7rem;
+  }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.02em;
+  }
+  .product-variant { font-size: 0.65rem; letter-spacing: 0.15em; color: var(--stone); margin-bottom: 0.6rem; }
+  .product-price {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--obsidian);
+    font-weight: 400;
+  }
+  .product-price-original {
+    text-decoration: line-through;
+    color: var(--mist);
+    margin-right: 0.6rem;
+  }
+  .product-price-sale { color: var(--gold); }
+
+  /* ── WHY HOODE ── */
+  .why-section {
+    background: var(--obsidian);
+    color: var(--cream-light);
+    padding: 7rem 5rem;
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .why-left .section-label { color: var(--gold); }
+  .why-left .section-title { color: var(--cream-light); margin-bottom: 1.6rem; }
+  .why-desc {
+    font-size: 0.82rem;
+    line-height: 1.9;
+    color: var(--mist);
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.04em;
+  }
+  .why-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .why-feat {
+    border-top: 1px solid rgba(184,150,90,0.3);
+    padding-top: 1.2rem;
+  }
+  .why-feat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+  .why-feat-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+  .why-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .why-img-box {
+    background: var(--warm-black);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-img-box:nth-child(2) { margin-top: 2.5rem; }
+  .why-img-box:nth-child(3) { margin-top: -2.5rem; }
+  .img-label {
+    position: absolute;
+    bottom: 1rem; left: 1rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--mist);
+    text-transform: uppercase;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { padding: 7rem 5rem; background: var(--cream-light); }
+  .testimonials .section-header { margin-bottom: 3.5rem; }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .testi-card {
+    background: var(--cream);
+    padding: 2.5rem;
+    border-left: 2px solid var(--gold);
+    position: relative;
+  }
+  .testi-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    color: var(--gold);
+    line-height: 0.5;
+    margin-bottom: 1.2rem;
+  }
+  .testi-text {
+    font-size: 0.82rem;
+    line-height: 1.85;
+    color: var(--stone);
+    margin-bottom: 1.8rem;
+    font-style: italic;
+  }
+  .testi-author {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--obsidian);
+    font-weight: 400;
+  }
+  .testi-stars { color: var(--gold); font-size: 0.7rem; margin-bottom: 0.8rem; }
+
+  /* ── SIZE GUIDE STRIP ── */
+  .size-strip {
+    background: var(--cream-dark);
+    padding: 3rem 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--mist);
+    border-bottom: 1px solid var(--mist);
+  }
+  .size-strip-left { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; }
+  .size-strip-right { display: flex; gap: 2rem; }
+  .size-pill {
+    padding: 0.5rem 1.5rem;
+    border: 1px solid var(--stone);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--stone);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .size-pill:hover, .size-pill.active { background: var(--obsidian); color: var(--cream); border-color: var(--obsidian); }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    padding: 7rem 5rem;
+    background: var(--obsidian);
+    text-align: center;
+  }
+  .newsletter .section-label { color: var(--gold); margin-bottom: 1rem; }
+  .newsletter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 300;
+    color: var(--cream-light);
+    margin-bottom: 1rem;
+  }
+  .newsletter-sub { font-size: 0.78rem; color: var(--mist); letter-spacing: 0.06em; margin-bottom: 3rem; }
+  .newsletter-form {
+    display: flex;
+    gap: 0;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .newsletter-input {
+    flex: 1;
+    padding: 1.1rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    outline: none;
+  }
+  .newsletter-input::placeholder { color: var(--stone); }
+  .newsletter-submit {
+    padding: 1.1rem 2rem;
+    background: var(--gold);
+    color: white;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s;
+    white-space: nowrap;
+  }
+  .newsletter-submit:hover { background: var(--gold-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--warm-black);
+    color: var(--mist);
+    padding: 5rem 5rem 2.5rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+  }
+  .footer-brand .nav-logo { color: var(--cream-light); display: block; margin-bottom: 1rem; text-decoration: none; }
+  .footer-brand p { font-size: 0.75rem; line-height: 1.8; color: var(--stone); }
+  .footer-col h4 {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 0.8rem; }
+  .footer-col a { font-size: 0.75rem; color: var(--stone); text-decoration: none; transition: color 0.3s; }
+  .footer-col a:hover { color: var(--cream); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p { font-size: 0.65rem; color: var(--stone); letter-spacing: 0.08em; }
+
+  /* ── CART DRAWER ── */
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    width: 420px;
+    height: 100vh;
+    background: var(--cream-light);
+    z-index: 201;
+    transform: translateX(100%);
+    transition: transform 0.42s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    flex-direction: column;
+  }
+  .cart-drawer.open { transform: translateX(0); }
+  .cart-header {
+    padding: 2rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--mist);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cart-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+  }
+  .close-cart {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--stone);
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s;
+  }
+  .close-cart:hover { color: var(--obsidian); }
+  .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem 2rem; }
+  .cart-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--stone);
+  }
+  .cart-empty p { font-size: 0.8rem; letter-spacing: 0.1em; }
+  .cart-item {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 1.8rem;
+    padding-bottom: 1.8rem;
+    border-bottom: 1px solid var(--cream-dark);
+    align-items: center;
+  }
+  .cart-item-img {
+    width: 80px; height: 100px;
+    background: var(--cream-dark);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.2rem; }
+  .cart-item-variant { font-size: 0.65rem; color: var(--stone); letter-spacing: 0.12em; margin-bottom: 0.6rem; }
+  .cart-item-price { font-size: 0.78rem; font-weight: 400; color: var(--gold); }
+  .cart-item-qty {
+    display: flex; align-items: center; gap: 0.7rem; margin-top: 0.6rem;
+  }
+  .qty-btn {
+    width: 26px; height: 26px;
+    border: 1px solid var(--mist);
+    background: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    color: var(--obsidian);
+  }
+  .qty-btn:hover { border-color: var(--obsidian); background: var(--obsidian); color: white; }
+  .qty-num { font-size: 0.78rem; min-width: 20px; text-align: center; }
+  .remove-item {
+    background: none; border: none; cursor: pointer;
+    color: var(--mist); font-size: 1rem; padding: 0.25rem;
+    transition: color 0.2s;
+  }
+  .remove-item:hover { color: #c0392b; }
+  .cart-footer {
+    padding: 1.5rem 2rem 2rem;
+    border-top: 1px solid var(--mist);
+  }
+  .cart-subtotal {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 0.6rem;
+  }
+  .cart-subtotal span { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--stone); }
+  .cart-total-amount { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; }
+  .cart-note { font-size: 0.65rem; color: var(--stone); margin-bottom: 1.5rem; letter-spacing: 0.05em; }
+  .checkout-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--obsidian);
+    color: var(--cream-light);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-bottom: 0.8rem;
+  }
+  .checkout-btn:hover { background: var(--gold); }
+  .continue-btn {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    color: var(--stone);
+    border: 1px solid var(--mist);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .continue-btn:hover { border-color: var(--obsidian); color: var(--obsidian); }
+
+  /* ── CHECKOUT MODAL ── */
+  .checkout-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 300;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s;
+  }
+  .checkout-modal.open { opacity: 1; pointer-events: all; }
+  .checkout-box {
+    background: var(--cream-light);
+    width: 90%;
+    max-width: 750px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.35s;
+  }
+  .checkout-modal.open .checkout-box { transform: translateY(0); }
+  .checkout-box-header {
+    background: var(--obsidian);
+    padding: 2rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .checkout-box-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--cream-light);
+    font-weight: 300;
+    letter-spacing: 0.15em;
+  }
+  .close-checkout {
+    background: none; border: none; color: var(--mist); font-size: 1.5rem; cursor: pointer;
+  }
+  .checkout-content { padding: 2.5rem; }
+  .checkout-steps {
+    display: flex; gap: 0; margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--mist); padding-bottom: 1.5rem;
+  }
+  .step {
+    flex: 1; text-align: center;
+    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--stone); padding-bottom: 0.8rem;
+    border-bottom: 2px solid transparent; transition: all 0.3s;
+    margin-bottom: -1px;
+  }
+  .step.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .step.done { color: var(--obsidian); border-bottom-color: var(--obsidian); }
+
+  .form-section { display: none; }
+  .form-section.active { display: block; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+  .form-row.full { grid-template-columns: 1fr; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone);
+  }
+  .form-group input, .form-group select {
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--mist);
+    background: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    color: var(--obsidian);
+    outline: none;
+    transition: border-color 0.25s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+
+  .checkout-summary {
+    background: var(--cream);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    border-left: 2px solid var(--gold);
+  }
+  .summary-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.75rem; margin-bottom: 0.6rem; color: var(--stone);
+  }
+  .summary-row.total {
+    font-size: 0.88rem; color: var(--obsidian); font-weight: 400;
+    border-top: 1px solid var(--mist); padding-top: 0.8rem; margin-top: 0.8rem;
+  }
+
+  .form-nav {
+    display: flex; justify-content: space-between; margin-top: 2rem;
+  }
+  .form-btn-back {
+    padding: 0.9rem 2rem; border: 1px solid var(--mist); background: none;
+    font-family: 'Montserrat', sans-serif; font-size: 0.62rem;
+    letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer;
+    color: var(--stone); transition: all 0.3s;
+  }
+  .form-btn-back:hover { border-color: var(--obsidian); color: var(--obsidian); }
+  .form-btn-next {
+    padding: 0.9rem 2.5rem; background: var(--obsidian); border: none;
+    font-family: 'Montserrat', sans-serif; font-size: 0.62rem;
+    letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer;
+    color: var(--cream-light); transition: background 0.3s;
+  }
+  .form-btn-next:hover { background: var(--gold); }
+
+  .payment-methods { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+  .pay-method {
+    flex: 1; padding: 1rem; border: 1px solid var(--mist);
+    text-align: center; cursor: pointer; transition: all 0.3s;
+  }
+  .pay-method.selected { border-color: var(--gold); background: rgba(184,150,90,0.07); }
+  .pay-method-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+  .pay-method-label { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--stone); text-transform: uppercase; }
+
+  .success-message { text-align: center; padding: 3rem 2rem; }
+  .success-icon { font-size: 3.5rem; margin-bottom: 1.5rem; }
+  .success-message h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300;
+    margin-bottom: 0.8rem;
+  }
+  .success-message p { font-size: 0.78rem; color: var(--stone); line-height: 1.8; }
+
+  .toast {
+    position: fixed;
+    bottom: 2.5rem; right: 2.5rem;
+    background: var(--obsidian);
+    color: var(--cream-light);
+    padding: 1.1rem 2rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    z-index: 400;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.4s;
+    border-left: 3px solid var(--gold);
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ── PAYMENT PANELS ── */
+  .pay-panel { margin: 1rem 0; }
+  .pay-disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    position: relative;
+  }
+  .pay-disabled.selected { background: transparent !important; border-color: var(--mist) !important; }
+  .pay-coming {
+    font-size: 0.52rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #e0a060;
+    margin-top: 0.3rem;
+  }
+
+  /* ── ORDER REVIEW BOX ── */
+  .order-review-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .order-review-label { color: var(--stone); font-size:0.68rem; letter-spacing:0.1em; }
+  .order-review-value { color: var(--obsidian); font-size:0.72rem; font-weight:400; text-align:right; max-width:55%; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 4rem 2rem 3rem; }
+    .hero-right { height: 320px; }
+    .section { padding: 4rem 1.5rem; }
+    .products-grid { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .why-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cart-drawer { width: 100%; }
+    .size-strip { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .size-strip-right { flex-wrap: wrap; justify-content: center; }
+    .newsletter { padding: 4rem 1.5rem; }
+    .newsletter-form { flex-direction: column; }
+    .why-section { padding: 4rem 1.5rem; }
+    .why-right { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="nav-logo">Rotloller Velours</a>
+  <ul class="nav-links">
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#craft">Craftsmanship</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="openCart()">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 01-8 0"/></svg>
+      Cart <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">New Arrival — Autumn Collection</p>
+    <h1 class="hero-title">Wear the<br><em>Art of</em><br>Rotloller Velours</h1>
+    <p class="hero-sub">Each Hoode piece is a studied restraint — designed for those who know that luxury speaks through texture, not volume.</p>
+    <div style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+      <a href="#collection" class="btn-primary">Explore Collection</a>
+      <a href="#about" class="btn-outline">Our Story</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <!-- Ganti src dengan path foto hero kamu -->
+      <div class="hero-garment">
+        <img src="1.jpeg" alt="HOODE Hero Garment">
+      </div>
+      <div class="hero-accent-line"></div>
+    </div>
+    <div class="hero-tag">Autumn · 2026 · Limited Edition</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Free Shipping Above Rp500.000</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item">Handcrafted in Indonesia</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item">Premium Japanese Fabric</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item">30-Day Easy Returns</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item">Free Shipping Above Rp500.000</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item">Handcrafted in Indonesia</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item">Premium Japanese Fabric</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item">30-Day Easy Returns</span>
+    <span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- COLLECTION -->
+<section id="collection" class="section">
+  <div class="section-header">
+    <div>
+      <p class="section-label">Autumn Collection 2026</p>
+      <h2 class="section-title">The Curated Edit</h2>
+    </div>
+    <a href="#" class="btn-outline" style="font-size:0.6rem;">View All Pieces</a>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- WHY HOODE -->
+<section id="about" class="why-section">
+  <div class="why-grid">
+    <div class="why-left">
+      <p class="section-label">Why Rotloller Velours</p>
+      <h2 class="section-title" style="color:var(--cream-light);">Made with intention <br><em style="font-style:italic;">and feeling</em></h2>
+      <p class="why-desc">Rotloller Velours is made for people who like clean looks with strong presence.
+
+Crafted with 330 GSM premium fabric, the hoodie feels thick, heavy, and high quality — giving a more luxury fit and silhouette when worn.
+The black & pink colorway brings a bold yet elegant vibe, easy to style for everyday wear.
+More than just a hoodie, Rotloller is about detail, comfort, and quiet confidence.</p>
+      <a href="#collection" class="btn-primary" style="background:var(--gold); color:white;">Shop The Collection</a>
+      <div class="why-features" style="margin-top:3rem;">
+        <div class="why-feat">
+          <div class="why-feat-num">07</div>
+          <div class="why-feat-label">Years of Mastery</div>
+        </div>
+        <div class="why-feat">
+          <div class="why-feat-num">100%</div>
+          <div class="why-feat-label">Natural Fibers</div>
+        </div>
+        <div class="why-feat">
+          <div class="why-feat-num">48h</div>
+          <div class="why-feat-label">Careful Processing</div>
+        </div>
+        <div class="why-feat">
+          <div class="why-feat-num">∞</div>
+          <div class="why-feat-label">Lifetime Support</div>
+        </div>
+      </div>
+    </div>
+    <div class="why-right">
+      <div class="why-img-box">
+        <!-- Ganti src dengan foto detail produk 1 -->
+        <img src="2.jpeg" alt="Premium Thread" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <span class="img-label">Premium Thread</span>
+      </div>
+      <div class="why-img-box">
+        <!-- Ganti src dengan foto detail produk 2 -->
+        <img src="3.jpeg" alt="Hand Stitching" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <span class="img-label">Hand Stitching</span>
+      </div>
+      <div class="why-img-box">
+        <!-- Ganti src dengan foto detail produk 3 -->
+        <img src="4.jpeg" alt="Precision Cut" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <span class="img-label">Precision Cut</span>
+      </div>
+      <div class="why-img-box">
+        <!-- Ganti src dengan foto detail produk 4 -->
+        <img src="5.jpeg" alt="Final Finish" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <span class="img-label">Final Finish</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIZE STRIP -->
+<div class="size-strip">
+  <div class="size-strip-left">Find Your Perfect Fit</div>
+  <div class="size-strip-right">
+    <div class="size-pill" onclick="toggleSize(this)">XS</div>
+    <div class="size-pill active" onclick="toggleSize(this)">S</div>
+    <div class="size-pill" onclick="toggleSize(this)">M</div>
+    <div class="size-pill" onclick="toggleSize(this)">L</div>
+    <div class="size-pill" onclick="toggleSize(this)">XL</div>
+    <div class="size-pill" onclick="toggleSize(this)">XXL</div>
+  </div>
+  <a href="#" class="btn-outline" style="font-size:0.6rem;">Size Guide →</a>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="craft">
+  <div class="section-header">
+    <div>
+      <p class="section-label">What People Say</p>
+      <h2 class="section-title">The Hoode Experience</h2>
+    </div>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">The weight and drape of this hoodie is unlike anything I've owned. You can tell every seam was considered. It's been six months and the fabric still feels new.</p>
+      <div class="testi-author">Rania S. — Jakarta</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">I was skeptical about paying premium for a hoodie. Three wears in and I understand completely. The silence in how it fits — no awkward pulls, no bulk. Just presence.</p>
+      <div class="testi-author">Farhan A. — Bandung</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Hoode packaging alone sets the tone. Opening it felt like receiving a gift. The piece inside exceeded even that expectation. I've ordered twice since.</p>
+      <div class="testi-author">Dina M. — Surabaya</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="contact">
+  <p class="section-label">Stay Connected</p>
+  <h2 class="newsletter-title">First Access to New Drops</h2>
+  <p class="newsletter-sub">Join the inner circle. Early releases, private sales, and stories from the studio.</p>
+  <div class="newsletter-form">
+    <input class="newsletter-input" type="email" placeholder="Your email address">
+    <button class="newsletter-submit" onclick="subscribeNewsletter()">Subscribe</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">Rotloller Velours</a>
+      <p>A luxury essentials brand born in Bandung. We make pieces designed to be worn every day and kept for a lifetime.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Hoodies</a></li>
+        <li><a href="#">Outerwear</a></li>
+        <li><a href="#">Basics</a></li>
+        <li><a href="#">Archive Sale</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Shipping & Returns</a></li>
+        <li><a href="#">Care Instructions</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Track Order</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Craftsmanship</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Wholesale</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Hoode. All rights reserved.</p>
+    <p>Made with care in Bandung, Indonesia</p>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h2>Your Bag</h2>
+    <button class="close-cart" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">
+      <p>Your bag is empty.<br>Discover our collection.</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span class="cart-total-amount" id="cartTotal">Rp 0</span>
+    </div>
+    <p class="cart-note">Shipping & taxes calculated at checkout</p>
+    <button class="checkout-btn" onclick="openCheckout()">Proceed to Checkout</button>
+    <button class="continue-btn" onclick="closeCart()">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="checkout-modal" id="checkoutModal">
+  <div class="checkout-box">
+    <div class="checkout-box-header">
+      <h2>HOODE — Checkout</h2>
+      <button class="close-checkout" onclick="closeCheckout()">✕</button>
+    </div>
+    <div class="checkout-content">
+      <div class="checkout-steps">
+        <div class="step active" id="step1">Information</div>
+        <div class="step" id="step2">Delivery</div>
+        <div class="step" id="step3">Payment</div>
+        <div class="step" id="step4">Confirm</div>
+      </div>
+
+      <!-- STEP 1: INFO -->
+      <div class="form-section active" id="formStep1">
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="Ahmad"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Santoso"></div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group"><label>Email Address</label><input type="email" placeholder="ahmad@email.com"></div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+62 812 0000 0000"></div>
+        </div>
+        <div class="checkout-summary" id="checkoutSummary1"></div>
+        <div class="form-nav">
+          <button class="form-btn-back" onclick="closeCheckout()">← Back to Cart</button>
+          <button class="form-btn-next" onclick="goStep(2)">Delivery →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: DELIVERY -->
+      <div class="form-section" id="formStep2">
+        <div class="form-row full">
+          <div class="form-group"><label>Street Address</label><input type="text" placeholder="Jl. Dago No. 12"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>City</label><input type="text" placeholder="Bandung"></div>
+          <div class="form-group"><label>Province</label>
+            <select><option>Jawa Barat</option><option>DKI Jakarta</option><option>Jawa Timur</option><option>Jawa Tengah</option><option>Bali</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Postal Code</label><input type="text" placeholder="40135"></div>
+          <div class="form-group"><label>Shipping Method</label>
+            <select><option>JNE Reguler (2-3 hari) — Gratis</option><option>JNE YES (1 hari) — Rp25.000</option><option>SiCepat BEST (1-2 hari) — Rp20.000</option></select>
+          </div>
+        </div>
+        <div class="checkout-summary" id="checkoutSummary2"></div>
+        <div class="form-nav">
+          <button class="form-btn-back" onclick="goStep(1)">← Information</button>
+          <button class="form-btn-next" onclick="goStep(3)">Payment →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: PAYMENT -->
+      <div class="form-section" id="formStep3">
+        <p style="font-size:0.72rem;color:var(--stone);letter-spacing:0.08em;margin-bottom:1.2rem;">Pilih metode pembayaran</p>
+        <div class="payment-methods">
+          <div class="pay-method pay-disabled" onclick="selectPay(this,'cc')" data-method="cc">
+            <div class="pay-method-icon">💳</div>
+            <div class="pay-method-label">Kartu Kredit</div>
+            <div class="pay-coming">Coming Soon</div>
+          </div>
+          <div class="pay-method selected" onclick="selectPay(this,'bank')" data-method="bank">
+            <div class="pay-method-icon">🏦</div>
+            <div class="pay-method-label">Transfer Bank</div>
+          </div>
+          <div class="pay-method pay-disabled" onclick="selectPay(this,'ewallet')" data-method="ewallet">
+            <div class="pay-method-icon">📱</div>
+            <div class="pay-method-label">GoPay / OVO</div>
+            <div class="pay-coming">Coming Soon</div>
+          </div>
+          <div class="pay-method" onclick="selectPay(this,'cod')" data-method="cod">
+            <div class="pay-method-icon">🏪</div>
+            <div class="pay-method-label">Bayar di Tempat</div>
+          </div>
+        </div>
+
+        <!-- Panel Transfer Bank -->
+        <div id="payPanel-bank" class="pay-panel">
+          <div style="background:var(--cream-dark);padding:1.4rem 1.6rem;border-left:3px solid var(--gold);margin-bottom:1rem;">
+            <p style="font-size:0.7rem;letter-spacing:0.12em;color:var(--stone);margin-bottom:0.6rem;text-transform:uppercase;">Rekening Tujuan</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--obsidian);margin-bottom:0.2rem;">BCA — 1234 5678 90</p>
+            <p style="font-size:0.72rem;color:var(--stone);">a.n. HOODE Indonesia</p>
+          </div>
+          <p style="font-size:0.7rem;color:var(--stone);line-height:1.7;letter-spacing:0.05em;">Transfer sesuai total tagihan. Kirim bukti transfer ke WhatsApp <strong style="color:var(--obsidian);">0812-0000-0000</strong> setelah pembayaran.</p>
+        </div>
+
+        <!-- Panel COD -->
+        <div id="payPanel-cod" class="pay-panel" style="display:none;">
+          <div style="background:var(--cream-dark);padding:1.4rem 1.6rem;border-left:3px solid var(--gold);">
+            <p style="font-size:0.72rem;color:var(--stone);line-height:1.7;letter-spacing:0.05em;">Pembayaran dilakukan saat barang tiba di alamat pengiriman. Harap siapkan uang pas. Layanan COD tersedia untuk area tertentu.</p>
+          </div>
+        </div>
+
+        <!-- Panel CC / E-Wallet (disabled notice) -->
+        <div id="payPanel-cc" class="pay-panel" style="display:none;">
+          <div style="background:#fff8f0;padding:1.4rem 1.6rem;border-left:3px solid #e0a060;text-align:center;">
+            <p style="font-size:1.5rem;margin-bottom:0.5rem;">🚧</p>
+            <p style="font-size:0.78rem;font-weight:500;color:var(--obsidian);margin-bottom:0.3rem;">Kartu Kredit belum tersedia</p>
+            <p style="font-size:0.68rem;color:var(--stone);">Metode ini sedang dalam pengembangan. Silakan pilih Transfer Bank atau Bayar di Tempat.</p>
+          </div>
+        </div>
+        <div id="payPanel-ewallet" class="pay-panel" style="display:none;">
+          <div style="background:#fff8f0;padding:1.4rem 1.6rem;border-left:3px solid #e0a060;text-align:center;">
+            <p style="font-size:1.5rem;margin-bottom:0.5rem;">🚧</p>
+            <p style="font-size:0.78rem;font-weight:500;color:var(--obsidian);margin-bottom:0.3rem;">GoPay / OVO belum tersedia</p>
+            <p style="font-size:0.68rem;color:var(--stone);">Metode ini sedang dalam pengembangan. Silakan pilih Transfer Bank atau Bayar di Tempat.</p>
+          </div>
+        </div>
+
+        <div class="checkout-summary" id="checkoutSummary3"></div>
+        <div class="form-nav">
+          <button class="form-btn-back" onclick="goStep(2)">← Delivery</button>
+          <button class="form-btn-next" id="btnToConfirm" onclick="goToConfirm()">Review Order →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: CONFIRM -->
+      <div class="form-section" id="formStep4">
+        <div class="success-message" id="orderSuccess" style="display:none;">
+          <div class="success-icon">✦</div>
+          <h3>Pesanan Berhasil Dibuat</h3>
+          <div id="orderReceipt" style="text-align:left;margin:1.5rem 0;background:var(--cream-dark);padding:1.4rem;font-size:0.72rem;line-height:1.9;color:var(--stone);letter-spacing:0.04em;"></div>
+          <p style="font-size:0.72rem;color:var(--stone);">Konfirmasi akan dikirim ke email kamu. Tim HOODE akan segera memproses pesananmu.</p>
+          <br>
+          <button class="form-btn-next" onclick="closeCheckout(); resetCart();">Lanjut Belanja</button>
+        </div>
+        <div id="confirmView">
+          <p style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;">Ringkasan Pesanan</p>
+          <div id="orderReview" style="font-size:0.72rem;line-height:1.9;color:var(--stone);letter-spacing:0.04em;margin-bottom:1rem;"></div>
+          <div class="checkout-summary" id="checkoutSummary4" style="margin-top:0;"></div>
+          <div class="form-nav" style="margin-top:1.5rem;">
+            <button class="form-btn-back" onclick="goStep(3)">← Payment</button>
+            <button class="form-btn-next" onclick="placeOrder()">Place Order ✦</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── PRODUCT DATA ──
+const products = [
+  {id:1, name:"Rotloller Velours", variant:"Heavyweight · Unisex", price:770000, originalPrice:null, badge:"Bestseller",
+   colors:["#1A1714","#2C2825","#8C8070"],
+   image: "1.jpeg"},
+  {id:2, name:"Couple hoodie", variant:"Two-piece · Relaxed Fit", price:770000, originalPrice:900000, badge:"Sale",
+   colors:["#EDE8E0","#C8BFB2","#B8965A"],
+   image: "2.jpeg"},
+  {id:3, name:"Stone Zip Hoodie", variant:"Midweight · Structured", price:770000, originalPrice:null, badge:"New",
+   colors:["#8C8070","#C8BFB2","#1A1714"],
+   image: "3.jpeg"},
+  {id:4, name:"Midnight Trench", variant:"Outerwear · Limited", price:770000, originalPrice:null, badge:"Limited",
+   colors:["#1A1714","#2C2825"],
+   image: "4.jpeg"},
+  {id:5, name:"Cream Essential Tee", variant:"Lightweight · Core",  price:770000, originalPrice:350000, badge:null,
+   colors:["#EDE8E0","#F5F2ED","#1A1714"],
+   image: "5.jpeg"},
+  {id:6, name:"Gold Stitch Bomber", variant:"Outerwear · Signature", price:770000, originalPrice:null, badge:"Signature",
+   colors:["#2A2622","#B8965A"],
+   image: "6.jpeg"}
+];
+
+let cart = [];
+
+function formatRp(n) {
+  return 'Rp ' + n.toLocaleString('id-ID');
+}
+
+// ── RENDER PRODUCTS ──
+const grid = document.getElementById('productsGrid');
+products.forEach(p => {
+  const div = document.createElement('div');
+  div.className = 'product-card';
+  div.innerHTML = `
+    <div class="product-img">
+      <div class="product-visual" style="position:relative;">
+        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+      </div>
+      ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
+      <div class="product-overlay">
+        <button class="overlay-btn add" onclick="addToCart(${p.id})">Add to Bag</button>
+        <button class="overlay-btn quick">Quick View</button>
+      </div>
+    </div>
+    <div class="product-name">${p.name}</div>
+    <div class="product-variant">${p.variant}</div>
+    <div class="product-price">
+      ${p.originalPrice ? `<span class="product-price-original">${formatRp(p.originalPrice)}</span>` : ''}
+      <span class="${p.originalPrice ? 'product-price-sale' : ''}">${formatRp(p.price)}</span>
+    </div>
+  `;
+  grid.appendChild(div);
+});
+
+// ── CART LOGIC ──
+function addToCart(id) {
+  const prod = products.find(p => p.id === id);
+  const existing = cart.find(c => c.id === id);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ ...prod, qty: 1 });
+  }
+  updateCart();
+  showToast(`${prod.name} added to your bag`);
+}
+
+function updateCart() {
+  document.getElementById('cartCount').textContent = cart.reduce((s, c) => s + c.qty, 0);
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  document.getElementById('cartTotal').textContent = formatRp(total);
+
+  const itemsEl = document.getElementById('cartItems');
+  const emptyEl = document.getElementById('cartEmpty');
+  const footerEl = document.getElementById('cartFooter');
+
+  if (cart.length === 0) {
+    emptyEl.style.display = 'block';
+    footerEl.style.display = 'none';
+    itemsEl.innerHTML = '';
+    itemsEl.appendChild(emptyEl);
+    return;
+  }
+  emptyEl.style.display = 'none';
+  footerEl.style.display = 'block';
+  itemsEl.innerHTML = '';
+  cart.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <div class="cart-item-img"><img src="${item.image}" alt="${item.name}" style="width:70px;height:88px;object-fit:cover;display:block;"></div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-variant">${item.variant}</div>
+        <div class="cart-item-price">${formatRp(item.price)}</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+        </div>
+      </div>
+      <button class="remove-item" onclick="removeItem(${item.id})">✕</button>
+    `;
+    itemsEl.appendChild(div);
+  });
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(c => c.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(c => c.id !== id);
+  updateCart();
+}
+
+function removeItem(id) {
+  cart = cart.filter(c => c.id !== id);
+  updateCart();
+}
+
+function resetCart() {
+  cart = [];
+  updateCart();
+}
+
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartDrawer').classList.add('open');
+}
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartDrawer').classList.remove('open');
+}
+
+// ── CHECKOUT ──
+let currentStep = 1;
+let selectedPayMethod = 'bank';
+let orderData = {};
+
+function openCheckout() {
+  closeCart();
+  updateSummaries();
+  document.getElementById('checkoutModal').classList.add('open');
+}
+function closeCheckout() {
+  document.getElementById('checkoutModal').classList.remove('open');
+  currentStep = 1;
+  goStep(1, true);
+  document.getElementById('orderSuccess').style.display = 'none';
+  document.getElementById('confirmView').style.display = 'block';
+}
+
+function updateSummaries() {
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const shipping = total >= 500000 ? 0 : 25000;
+  const summary = `
+    <div class="summary-row"><span>Items (${cart.reduce((s,c)=>s+c.qty,0)})</span><span>${formatRp(total)}</span></div>
+    <div class="summary-row"><span>Shipping</span><span>${shipping === 0 ? 'Gratis' : formatRp(shipping)}</span></div>
+    <div class="summary-row total"><span>Total</span><span>${formatRp(total + shipping)}</span></div>
+  `;
+  ['1','2','3','4'].forEach(n => {
+    const el = document.getElementById('checkoutSummary'+n);
+    if (el) el.innerHTML = summary;
+  });
+}
+
+// ── VALIDASI ──
+function getVal(selector) {
+  const el = document.querySelector(selector);
+  return el ? el.value.trim() : '';
+}
+
+function validateStep(n) {
+  if (n === 1) {
+    const firstName = getVal('#formStep1 input[placeholder="Ahmad"]');
+    const lastName  = getVal('#formStep1 input[placeholder="Santoso"]');
+    const email     = getVal('#formStep1 input[type="email"]');
+    const phone     = getVal('#formStep1 input[type="tel"]');
+    if (!firstName) { showToast('Mohon isi First Name'); return false; }
+    if (!lastName)  { showToast('Mohon isi Last Name'); return false; }
+    if (!email || !email.includes('@')) { showToast('Email tidak valid'); return false; }
+    if (!phone)     { showToast('Mohon isi nomor telepon'); return false; }
+    orderData.firstName = firstName;
+    orderData.lastName  = lastName;
+    orderData.email     = email;
+    orderData.phone     = phone;
+    return true;
+  }
+  if (n === 2) {
+    const address  = getVal('#formStep2 input[placeholder="Jl. Dago No. 12"]');
+    const city     = getVal('#formStep2 input[placeholder="Bandung"]');
+    const postal   = getVal('#formStep2 input[placeholder="40135"]');
+    const province = document.querySelector('#formStep2 select:first-of-type');
+    const shipping = document.querySelector('#formStep2 select:last-of-type');
+    if (!address) { showToast('Mohon isi alamat'); return false; }
+    if (!city)    { showToast('Mohon isi kota'); return false; }
+    if (!postal)  { showToast('Mohon isi kode pos'); return false; }
+    orderData.address  = address;
+    orderData.city     = city;
+    orderData.postal   = postal;
+    orderData.province = province ? province.value : '';
+    orderData.shipping = shipping ? shipping.value : '';
+    return true;
+  }
+  if (n === 3) {
+    if (selectedPayMethod === 'cc' || selectedPayMethod === 'ewallet') {
+      showToast('Metode ini belum tersedia. Pilih Transfer Bank atau COD.');
+      return false;
+    }
+    orderData.payMethod = selectedPayMethod === 'bank' ? 'Transfer Bank BCA' : 'Bayar di Tempat (COD)';
+    return true;
+  }
+  return true;
+}
+
+function goStep(n, silent = false) {
+  if (!silent && n > currentStep) {
+    if (!validateStep(currentStep)) return;
+  }
+  ['1','2','3','4'].forEach(i => {
+    document.getElementById('formStep'+i).classList.remove('active');
+    const s = document.getElementById('step'+i);
+    s.classList.remove('active','done');
+    if (parseInt(i) < n) s.classList.add('done');
+  });
+  document.getElementById('formStep'+n).classList.add('active');
+  document.getElementById('step'+n).classList.add('active');
+  currentStep = n;
+  updateSummaries();
+  if (n === 4) buildOrderReview();
+}
+
+function goToConfirm() {
+  if (!validateStep(3)) return;
+  goStep(4);
+}
+
+// ── REKAP ORDER ──
+function buildOrderReview() {
+  const total    = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const shipping = total >= 500000 ? 0 : 25000;
+  const rows = [
+    ['Nama',          `${orderData.firstName} ${orderData.lastName}`],
+    ['Email',         orderData.email],
+    ['Telepon',       orderData.phone],
+    ['Alamat',        orderData.address],
+    ['Kota',          `${orderData.city}, ${orderData.province} ${orderData.postal}`],
+    ['Pengiriman',    orderData.shipping ? orderData.shipping.split('(')[0].trim() : '-'],
+    ['Pembayaran',    orderData.payMethod],
+    ['Item',          cart.map(c => `${c.name} ×${c.qty}`).join(', ')],
+    ['Total Bayar',   formatRp(total + shipping)],
+  ];
+  document.getElementById('orderReview').innerHTML = rows.map(([l, v]) =>
+    `<div class="order-review-row"><span class="order-review-label">${l}</span><span class="order-review-value">${v}</span></div>`
+  ).join('');
+}
+
+function placeOrder() {
+  const orderId = 'HD-' + Date.now().toString().slice(-6);
+  const total   = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const shipping = total >= 500000 ? 0 : 25000;
+
+  // Simpan ke localStorage sebagai log pesanan
+  const order = {
+    id: orderId,
+    date: new Date().toLocaleString('id-ID'),
+    customer: orderData,
+    items: cart.map(c => ({ name: c.name, variant: c.variant, qty: c.qty, price: c.price })),
+    total: total + shipping,
+    payMethod: orderData.payMethod,
+  };
+  const existing = JSON.parse(localStorage.getItem('hoode_orders') || '[]');
+  existing.push(order);
+  localStorage.setItem('hoode_orders', JSON.stringify(existing));
+
+  // Tampilkan receipt
+  const rows = [
+    ['No. Pesanan',   `<strong style="color:var(--gold)">${orderId}</strong>`],
+    ['Tanggal',       order.date],
+    ['Nama',          `${orderData.firstName} ${orderData.lastName}`],
+    ['Email',         orderData.email],
+    ['Telepon',       orderData.phone],
+    ['Alamat',        `${orderData.address}, ${orderData.city}, ${orderData.province} ${orderData.postal}`],
+    ['Pengiriman',    orderData.shipping ? orderData.shipping.split('(')[0].trim() : '-'],
+    ['Pembayaran',    orderData.payMethod],
+    ['Item',          cart.map(c => `${c.name} ×${c.qty}`).join('<br>')],
+    ['Total Bayar',   `<strong style="color:var(--obsidian)">${formatRp(total + shipping)}</strong>`],
+  ];
+  document.getElementById('orderReceipt').innerHTML = rows.map(([l, v]) =>
+    `<div class="order-review-row"><span class="order-review-label">${l}</span><span class="order-review-value">${v}</span></div>`
+  ).join('');
+
+  document.getElementById('confirmView').style.display = 'none';
+  document.getElementById('orderSuccess').style.display = 'block';
+}
+
+function selectPay(el, method) {
+  if (method === 'cc' || method === 'ewallet') {
+    // Tetap tampilkan panel notice tapi tidak set sebagai metode aktif untuk checkout
+    document.querySelectorAll('.pay-panel').forEach(p => p.style.display = 'none');
+    document.getElementById('payPanel-' + method).style.display = 'block';
+    document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedPayMethod = method;
+    return;
+  }
+  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPayMethod = method;
+  document.querySelectorAll('.pay-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('payPanel-' + method).style.display = 'block';
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── NEWSLETTER ──
+function subscribeNewsletter() {
+  showToast('Welcome to the inner circle ✦');
+}
+
+// ── SIZE TOGGLE ──
+function toggleSize(el) {
+  document.querySelectorAll('.size-pill').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+}
+
+updateCart();
+</script>
+</body>
+</html>
